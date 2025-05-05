@@ -12,7 +12,7 @@ class PoissonSpikeGenerator(SpikeEncoder):
         time_config: Optional[EncoderTimeConfig] = None,
         duration_ms: float = 100.0,
         dt_ms: float = 1.0,
-        random_seed: Optional[int] = None,
+        random_seed: Optional[Union[int, np.random.RandomState]] = None,
     ):
         """
         Initialize the Poisson spike generator.
@@ -27,7 +27,10 @@ class PoissonSpikeGenerator(SpikeEncoder):
 
         # Set up random number generator
         if random_seed is not None:
-            self.rng = np.random.RandomState(random_seed)
+            if isinstance(random_seed, np.random.RandomState):
+                self.rng = random_seed
+            else:
+                self.rng = np.random.RandomState(random_seed)
         else:
             self.rng = np.random
 

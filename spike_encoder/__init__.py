@@ -11,7 +11,7 @@ __version__ = "0.1.0"
 # Import main classes from submodules
 from .base import SpikeEncoder, EncoderTimeConfig
 from .rate_encoders import RateEncoder, LinearRateEncoder, ReceptiveFieldEncoder
-from .spike_generators import PoissonSpikeGenerator
+from .spike_generators import PoissonSpikeGenerator, poisson_spike_generator
 from .pipeline import EncodingPipeline
 
 from .temporal_encoders import (
@@ -27,7 +27,6 @@ from .pipeline import (
     encoder_generator,
     linear_rate_encoder,
     receptive_field_encoder,
-    poisson_spike_generator,
     linear_to_poisson_encoder,
     receptive_field_to_poisson_encoder,
 )
