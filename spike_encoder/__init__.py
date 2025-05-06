@@ -17,6 +17,7 @@ from .pipeline import EncodingPipeline
 from .temporal_encoders import (
     TemporalEncoder,
     BurstEncoder,
+    PhaseEncoder,
     LatencyEncoder,
     RankOrderEncoder,
     create_temporal_encoder,
@@ -44,6 +45,7 @@ __all__ = [
     "EncodingPipeline",
     "TemporalEncoder",
     "BurstEncoder",
+    "PhaseEncoder",
     "LatencyEncoder",
     "RankOrderEncoder",
     # Convenience functions

@@ -141,17 +141,15 @@ class LinearRateEncoder(RateEncoder):
             return spike_array, next_time_ms
         else:
             # Convert binary spike array to spike times in milliseconds
-            spike_times = []
+            spike_times = [[] * n_neurons]
             for i in range(n_samples):
-                sample_times = []
                 for j in range(n_neurons):
                     neuron_times = self.time_config.steps_to_ms(
                         np.where(spike_array[i, :, j])[0]
                     )
                     if start_time_ms is not None:
                         neuron_times += start_time_ms
-                    sample_times.append(neuron_times)
-                spike_times.append(sample_times)
+                    spike_times[j].append(neuron_times)
             return spike_times, next_time_ms
 
 

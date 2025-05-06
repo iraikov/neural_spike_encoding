@@ -62,6 +62,9 @@ class PoissonSpikeGenerator(SpikeEncoder):
             (n_samples, self.time_config.num_steps, n_neurons), dtype=bool
         )
 
+        print(f"spike_generator: rates_hz.shape = {rates_hz.shape}")
+        print(f"spike_generator: np.max(rates_hz) = {np.max(rates_hz)}")
+
         # Generate Poisson spike trains
         for i in range(n_samples):
             for j in range(n_neurons):
