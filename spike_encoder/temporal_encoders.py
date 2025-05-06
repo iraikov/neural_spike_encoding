@@ -107,6 +107,9 @@ class PhaseEncoder(TemporalEncoder):
         # Create time vector in seconds (for phase calculation)
         time_vec_sec = self.time_config.get_time_vector_sec()
 
+        if start_time_ms is None:
+            start_time_ms = 0.0
+
         # Encode each feature
         for i in range(n_samples):
             for j in range(n_features):
@@ -155,6 +158,7 @@ class PhaseEncoder(TemporalEncoder):
                         neuron_times += start_time_ms
                     if len(neuron_times) > 0:
                         spike_times[j].append(neuron_times)
+                start_time_ms += self.time_config.dt_ms
             return spike_times, next_time_ms
 
 
@@ -240,6 +244,9 @@ class LatencyEncoder(TemporalEncoder):
         else:
             jitter_values = np.zeros((n_samples, n_neurons))
 
+        if start_time_ms is None:
+            start_time_ms = 0.0
+
         # Encode each feature
         for i in range(n_samples):
             for j in range(n_features):
@@ -295,6 +302,7 @@ class LatencyEncoder(TemporalEncoder):
                         neuron_times += start_time_ms
                     if len(neuron_times) > 0:
                         spike_times[j].append(neuron_times)
+                start_time_ms += self.time_config.dt_ms
             return spike_times, next_time_ms
 
 
@@ -367,6 +375,9 @@ class RankOrderEncoder(TemporalEncoder):
         spike_array = np.zeros(
             (n_samples, self.time_config.num_steps, n_neurons), dtype=bool
         )
+
+        if start_time_ms is None:
+            start_time_ms = 0.0
 
         # Encode each sample
         for i in range(n_samples):
@@ -444,6 +455,7 @@ class RankOrderEncoder(TemporalEncoder):
                         neuron_times += start_time_ms
                     if len(neuron_times) > 0:
                         spike_times[j].append(neuron_times)
+                start_time_ms += self.time_config.dt_ms
         return spike_array, next_time_ms
 
 
@@ -546,6 +558,9 @@ class BurstEncoder(SpikeEncoder):
             (n_samples, self.time_config.num_steps, n_neurons), dtype=bool
         )
 
+        if start_time_ms is None:
+            start_time_ms = 0.0
+
         # Encode each feature
         for i in range(n_samples):
             for j in range(n_features):
@@ -590,6 +605,7 @@ class BurstEncoder(SpikeEncoder):
                         neuron_times += start_time_ms
                     if len(neuron_times) > 0:
                         spike_times[j].append(neuron_times)
+                start_time_ms += self.time_config.dt_ms
         return spike_array, next_time_ms
 
 

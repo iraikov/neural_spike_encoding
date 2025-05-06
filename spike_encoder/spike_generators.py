@@ -62,8 +62,8 @@ class PoissonSpikeGenerator(SpikeEncoder):
             (n_samples, self.time_config.num_steps, n_neurons), dtype=bool
         )
 
-        print(f"spike_generator: rates_hz.shape = {rates_hz.shape}")
-        print(f"spike_generator: np.max(rates_hz) = {np.max(rates_hz)}")
+        if start_time_ms is None:
+            start_time_ms = 0.0
 
         # Generate Poisson spike trains
         for i in range(n_samples):
@@ -101,6 +101,7 @@ class PoissonSpikeGenerator(SpikeEncoder):
                         neuron_times += start_time_ms
                     if len(neuron_times) > 0:
                         spike_times[j].append(neuron_times)
+                start_time_ms += self.time_config.dt_ms
             return spike_times, next_time_ms
 
 

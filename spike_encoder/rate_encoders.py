@@ -113,6 +113,9 @@ class LinearRateEncoder(RateEncoder):
             (n_samples, self.time_config.num_steps, n_neurons), dtype=bool
         )
 
+        if start_time_ms is None:
+            start_time_ms = 0.0
+
         # For each sample and neuron
         for i in range(n_samples):
             for j in range(n_neurons):
@@ -151,6 +154,7 @@ class LinearRateEncoder(RateEncoder):
                         neuron_times += start_time_ms
                     if len(neuron_times) > 0:
                         spike_times[j].append(neuron_times)
+                start_time_ms += self.time_config.dt_ms
             return spike_times, next_time_ms
 
 
