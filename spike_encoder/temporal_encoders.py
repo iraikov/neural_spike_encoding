@@ -144,7 +144,8 @@ class PhaseEncoder(TemporalEncoder):
             return spike_array, next_time_ms
         else:
             # Convert binary spike array to spike times in milliseconds
-            spike_times = [[] * n_neurons]
+            spike_times = list([[] for _ in range(n_neurons)])
+
             for i in range(n_samples):
                 for j in range(n_neurons):
                     neuron_times = self.time_config.steps_to_ms(
@@ -152,7 +153,8 @@ class PhaseEncoder(TemporalEncoder):
                     )
                     if start_time_ms is not None:
                         neuron_times += start_time_ms
-                    spike_times[j].append(neuron_times)
+                    if len(neuron_times) > 0:
+                        spike_times[j].append(neuron_times)
             return spike_times, next_time_ms
 
 
@@ -283,7 +285,7 @@ class LatencyEncoder(TemporalEncoder):
             return spike_array, next_time_ms
         else:
             # Convert binary spike array to spike times in milliseconds
-            spike_times = []
+            spike_times = list([[] for _ in range(n_neurons)])
             for i in range(n_samples):
                 for j in range(n_neurons):
                     neuron_times = self.time_config.steps_to_ms(
@@ -291,7 +293,8 @@ class LatencyEncoder(TemporalEncoder):
                     )
                     if start_time_ms is not None:
                         neuron_times += start_time_ms
-                    spike_times[j].append(neuron_times)
+                    if len(neuron_times) > 0:
+                        spike_times[j].append(neuron_times)
             return spike_times, next_time_ms
 
 
@@ -431,7 +434,7 @@ class RankOrderEncoder(TemporalEncoder):
             return spike_array, next_time_ms
         else:
             # Convert binary spike array to spike times in milliseconds
-            spike_times = [[] * n_neurons]
+            spike_times = list([[] for _ in range(n_neurons)])
             for i in range(n_samples):
                 for j in range(n_neurons):
                     neuron_times = self.time_config.steps_to_ms(
@@ -439,7 +442,8 @@ class RankOrderEncoder(TemporalEncoder):
                     )
                     if start_time_ms is not None:
                         neuron_times += start_time_ms
-                    spike_times[j].append(neuron_times)
+                    if len(neuron_times) > 0:
+                        spike_times[j].append(neuron_times)
         return spike_array, next_time_ms
 
 
@@ -576,7 +580,7 @@ class BurstEncoder(SpikeEncoder):
             return spike_array, next_time_ms
         else:
             # Convert binary spike array to spike times in milliseconds
-            spike_times = [[] * n_neurons]
+            spike_times = list([[] for _ in range(n_neurons)])
             for i in range(n_samples):
                 for j in range(n_neurons):
                     neuron_times = self.time_config.steps_to_ms(
@@ -584,7 +588,8 @@ class BurstEncoder(SpikeEncoder):
                     )
                     if start_time_ms is not None:
                         neuron_times += start_time_ms
-                    spike_times[j].append(neuron_times)
+                    if len(neuron_times) > 0:
+                        spike_times[j].append(neuron_times)
         return spike_array, next_time_ms
 
 
